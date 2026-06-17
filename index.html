@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>قسم العلاقات العامة والإعلام</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+:root {
+  --green-dark:#1a3d2b;--green-mid:#2d6a4f;--green-light:#52b788;--green-soft:#d8f3dc;
+  --gold:#c9a84c;--gold-light:#f0d080;--gold-dark:#8a6a1e;
+  --gray-dark:#2c2c2c;--gray-mid:#6b6b6b;--gray-light:#e8e8e8;--gray-soft:#f5f5f3;
+  --white:#ffffff;
+  --shadow-sm:0 2px 8px rgba(26,61,43,0.10);--shadow-md:0 4px 20px rgba(26,61,43,0.14);
+  --radius:12px;--radius-sm:8px;--radius-lg:18px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Tajawal',sans-serif;background:var(--gray-soft);color:var(--gray-dark);direction:rtl;font-size:15px;line-height:1.7;}
+
+/* HEADER */
+header{background:linear-gradient(135deg,var(--green-dark) 0%,#0f2a1c 100%);position:sticky;top:0;z-index:1000;box-shadow:0 2px 16px rgba(0,0,0,0.22);}
+.header-inner{max-width:1280px;margin:auto;display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:72px;}
+.logo-area{display:flex;align-items:center;gap:14px;}
+.logo-emblem{width:46px;height:46px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--green-dark);font-weight:800;border:2px solid var(--gold-light);flex-shrink:0;}
+.logo-text h1{font-size:15px;font-weight:700;color:var(--white);line-height:1.2;}
+.logo-text p{font-size:11px;color:var(--gold-light);letter-spacing:1px;}
+.header-nav{display:flex;gap:4px;align-items:center;}
+.header-nav a{color:rgba(255,255,255,0.78);text-decoration:none;font-size:13px;font-weight:500;padding:6px 14px;border-radius:6px;transition:all .2s;white-space:nowrap;}
+.header-nav a:hover{color:var(--gold-light);background:rgba(255,255,255,0.08);}
+.header-nav a.active{color:var(--gold);background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.3);}
+.hamburger{display:none;background:none;border:none;cursor:pointer;color:white;font-size:22px;padding:6px;}
+.mobile-nav{display:none;flex-direction:column;background:var(--green-dark);padding:12px 0;border-top:1px solid rgba(255,255,255,0.1);}
+.mobile-nav.open{display:flex;}
+.mobile-nav a{color:rgba(255,255,255,0.8);text-decoration:none;font-size:14px;padding:10px 2rem;transition:background .15s;}
+.mobile-nav a:hover{background:rgba(255,255,255,0.06);color:var(--gold-light);}
+
+/* ADMIN BAR */
+.admin-bar{background:#0d2118;border-bottom:1px solid rgba(201,168,76,0.25);padding:8px 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;}
+.admin-bar.hidden{display:none;}
+.admin-label{color:var(--gold);font-size:12px;font-weight:700;display:flex;align-items:center;gap:6px;}
+.admin-label i{font-size:14px;}
+.admin-actions{display:flex;gap:8px;flex-wrap:wrap;}
+.admin-actions button{background:rgba(201,168,76,0.15);color:var(--gold-light);border:1px solid rgba(201,168,76,0.35);border-radius:6px;padding:5px 14px;font-family:'Tajawal',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:5px;}
+.admin-actions button:hover{background:rgba(201,168,76,0.3);}
+.admin-actions button.danger{background:rgba(220,38,38,0.15);color:#fca5a5;border-color:rgba(220,38,38,0.35);}
+.admin-actions button.danger:hover{background:rgba(220,38,38,0.3);}
+
+/* HERO */
+.hero-banner{background:linear-gradient(160deg,var(--green-dark) 0%,#0d2118 60%,#1a3d2b 100%);padding:56px 2rem 48px;text-align:center;position:relative;overflow:hidden;}
+.hero-banner::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23c9a84c' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");}
+.hero-banner .inner{position:relative;max-width:700px;margin:auto;}
+.hero-tag{display:inline-block;background:rgba(201,168,76,0.18);color:var(--gold-light);border:1px solid rgba(201,168,76,0.35);border-radius:30px;font-size:12px;font-weight:500;padding:4px 16px;margin-bottom:18px;letter-spacing:1px;}
+.hero-banner h2{font-size:32px;font-weight:800;color:var(--white);line-height:1.3;margin-bottom:10px;}
+.hero-banner h2 span{color:var(--gold);}
+.hero-banner p{color:rgba(255,255,255,0.6);font-size:15px;margin-bottom:28px;}
+.search-wrapper{max-width:640px;margin:0 auto;position:relative;}
+.search-bar{display:flex;align-items:center;background:rgba(255,255,255,0.97);border-radius:50px;box-shadow:0 4px 24px rgba(0,0,0,0.20),0 0 0 2px rgba(201,168,76,0.25);overflow:hidden;transition:box-shadow .25s;}
+.search-bar:focus-within{box-shadow:0 4px 28px rgba(0,0,0,0.25),0 0 0 3px rgba(201,168,76,0.5);}
+.search-bar i{padding:0 16px 0 20px;font-size:18px;color:var(--green-mid);}
+.search-bar input{flex:1;border:none;outline:none;font-family:'Tajawal',sans-serif;font-size:15px;color:var(--gray-dark);background:transparent;padding:14px 0;}
+.search-bar input::placeholder{color:var(--gray-mid);}
+.search-btn{background:var(--green-dark);color:var(--gold);border:none;cursor:pointer;padding:0 24px;height:52px;font-family:'Tajawal',sans-serif;font-size:14px;font-weight:600;transition:background .2s;border-radius:0 50px 50px 0;white-space:nowrap;}
+.search-btn:hover{background:var(--green-mid);}
+.search-suggestions{position:absolute;top:calc(100% + 8px);right:0;left:0;background:white;border-radius:var(--radius);box-shadow:var(--shadow-md);display:none;z-index:200;overflow:hidden;}
+.search-suggestions.visible{display:block;}
+.suggestion-item{padding:10px 20px;cursor:pointer;font-size:14px;display:flex;align-items:center;gap:10px;color:var(--gray-dark);transition:background .15s;border-bottom:1px solid var(--gray-light);}
+.suggestion-item:last-child{border-bottom:none;}
+.suggestion-item:hover{background:var(--green-soft);}
+.suggestion-item i{color:var(--green-mid);font-size:14px;}
+
+/* MAIN */
+.main-container{max-width:1280px;margin:0 auto;padding:2rem 1.5rem 3rem;}
+.section-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem;flex-wrap:wrap;gap:10px;}
+.section-title{display:flex;align-items:center;gap:10px;}
+.section-title .icon-badge{width:38px;height:38px;border-radius:var(--radius-sm);background:var(--green-dark);display:flex;align-items:center;justify-content:center;color:var(--gold);font-size:17px;flex-shrink:0;}
+.section-title h3{font-size:18px;font-weight:700;color:var(--green-dark);line-height:1.2;}
+.section-title span{font-size:12px;color:var(--gray-mid);font-weight:400;display:block;}
+.section-link{color:var(--green-mid);font-size:13px;font-weight:500;text-decoration:none;display:flex;align-items:center;gap:5px;transition:color .2s;}
+.section-link:hover{color:var(--gold-dark);}
+.section-divider{height:3px;background:linear-gradient(90deg,var(--green-dark) 0%,var(--gold) 50%,transparent 100%);border-radius:2px;margin-bottom:1.4rem;}
+
+/* STATS */
+.stats-section{margin-bottom:2.5rem;}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;}
+.stat-card{background:var(--white);border-radius:var(--radius);padding:20px 18px;box-shadow:var(--shadow-sm);border:1px solid var(--gray-light);position:relative;overflow:hidden;transition:transform .2s,box-shadow .2s;}
+.stat-card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md);}
+.stat-card::before{content:'';position:absolute;top:0;right:0;width:4px;height:100%;}
+.stat-card.green::before{background:var(--green-dark);}
+.stat-card.gold::before{background:var(--gold);}
+.stat-card.gray::before{background:var(--gray-mid);}
+.stat-icon{width:40px;height:40px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:12px;}
+.stat-card.green .stat-icon{background:var(--green-soft);color:var(--green-dark);}
+.stat-card.gold .stat-icon{background:#fef9e6;color:var(--gold-dark);}
+.stat-card.gray .stat-icon{background:var(--gray-light);color:var(--gray-mid);}
+.stat-number{font-size:28px;font-weight:800;color:var(--green-dark);line-height:1;margin-bottom:5px;}
+.stat-card.gold .stat-number{color:var(--gold-dark);}
+.stat-card.gray .stat-number{color:var(--gray-dark);}
+.stat-label{font-size:12px;color:var(--gray-mid);}
+.stat-trend{position:absolute;top:14px;left:14px;font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;}
+.stat-trend.up{background:#e8f5e9;color:#2e7d32;}
+.stat-trend.steady{background:#fff8e1;color:var(--gold-dark);}
+
+/* CONTENT SECTIONS */
+.content-section{background:var(--white);border-radius:var(--radius-lg);padding:24px;margin-bottom:2rem;box-shadow:var(--shadow-sm);border:1px solid var(--gray-light);}
+.cards-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px;}
+.item-card{background:var(--gray-soft);border-radius:var(--radius);padding:18px;border:1px solid var(--gray-light);transition:all .2s;position:relative;}
+.item-card:hover{border-color:var(--green-light);background:#f0faf4;transform:translateY(-2px);box-shadow:var(--shadow-sm);}
+.card-badge{display:inline-flex;align-items:center;gap:5px;background:var(--green-soft);color:var(--green-dark);border-radius:30px;font-size:11px;font-weight:600;padding:3px 10px;margin-bottom:10px;}
+.card-title{font-size:15px;font-weight:700;color:var(--green-dark);margin-bottom:6px;line-height:1.4;}
+.card-date{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--gray-mid);margin-bottom:14px;}
+.card-date i{color:var(--gold);}
+.card-actions{display:flex;gap:8px;flex-wrap:wrap;}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:8px;font-family:'Tajawal',sans-serif;font-size:12px;font-weight:600;cursor:pointer;text-decoration:none;transition:all .2s;border:1.5px solid transparent;white-space:nowrap;}
+.btn-primary{background:var(--green-dark);color:var(--gold-light);border-color:var(--green-dark);}
+.btn-primary:hover{background:var(--green-mid);border-color:var(--green-mid);color:var(--gold-light);}
+.btn-gold{background:var(--gold);color:var(--green-dark);border-color:var(--gold);}
+.btn-gold:hover{background:var(--gold-dark);border-color:var(--gold-dark);color:var(--white);}
+.btn-outline{background:transparent;color:var(--green-dark);border-color:var(--green-mid);}
+.btn-outline:hover{background:var(--green-soft);border-color:var(--green-dark);}
+.btn-outline-gold{background:transparent;color:var(--gold-dark);border-color:var(--gold);}
+.btn-outline-gold:hover{background:#fef9e6;border-color:var(--gold-dark);}
+.btn-edit{background:rgba(26,61,43,0.08);color:var(--green-dark);border-color:var(--green-light);padding:5px 10px;font-size:11px;}
+.btn-edit:hover{background:var(--green-soft);}
+.btn-delete{background:rgba(220,38,38,0.08);color:#dc2626;border-color:rgba(220,38,38,0.3);padding:5px 10px;font-size:11px;}
+.btn-delete:hover{background:rgba(220,38,38,0.15);}
+
+/* EDIT OVERLAY ON CARDS */
+.card-edit-controls{position:absolute;top:10px;left:10px;display:none;gap:5px;flex-direction:column;}
+.admin-mode .card-edit-controls{display:flex;}
+.admin-mode .item-card{border:1.5px dashed var(--green-light);}
+.admin-mode .meeting-card{border:1.5px dashed var(--gold);}
+.admin-mode .stat-card{border:1.5px dashed var(--green-light);}
+
+/* MEETING CARDS */
+.meetings-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;}
+.meeting-card{display:flex;align-items:flex-start;gap:14px;padding:16px;border-radius:var(--radius);background:var(--gray-soft);border:1px solid var(--gray-light);transition:all .2s;position:relative;}
+.meeting-card:hover{border-color:var(--gold);background:#fffdf5;}
+.meeting-date-box{min-width:52px;height:52px;border-radius:var(--radius-sm);background:var(--green-dark);display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--gold-light);flex-shrink:0;}
+.meeting-date-box .day{font-size:18px;font-weight:800;line-height:1;}
+.meeting-date-box .month{font-size:10px;font-weight:500;opacity:.8;}
+.meeting-info{flex:1;min-width:0;}
+.meeting-info h4{font-size:14px;font-weight:700;color:var(--green-dark);margin-bottom:4px;}
+.meeting-info p{font-size:12px;color:var(--gray-mid);margin-bottom:10px;}
+
+/* REPORTS TABLE */
+.reports-table{width:100%;border-collapse:collapse;font-size:14px;}
+.reports-table thead tr{background:var(--green-dark);color:var(--gold-light);}
+.reports-table th{padding:12px 16px;font-weight:600;font-size:13px;text-align:right;white-space:nowrap;}
+.reports-table th:first-child{border-radius:0 var(--radius-sm) var(--radius-sm) 0;}
+.reports-table th:last-child{border-radius:var(--radius-sm) 0 0 var(--radius-sm);}
+.reports-table tbody tr{border-bottom:1px solid var(--gray-light);transition:background .15s;}
+.reports-table tbody tr:hover{background:#f0faf4;}
+.reports-table tbody tr:last-child{border-bottom:none;}
+.reports-table td{padding:12px 16px;color:var(--gray-dark);vertical-align:middle;}
+.report-num{display:inline-flex;width:28px;height:28px;border-radius:50%;background:var(--green-soft);color:var(--green-dark);font-size:12px;font-weight:700;align-items:center;justify-content:center;}
+
+/* FILTER */
+.filter-bar{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;align-items:center;}
+.filter-label{font-size:13px;color:var(--gray-mid);font-weight:500;}
+.filter-chip{padding:5px 14px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid var(--gray-light);background:transparent;color:var(--gray-mid);font-family:'Tajawal',sans-serif;transition:all .2s;}
+.filter-chip.active,.filter-chip:hover{background:var(--green-dark);color:var(--gold-light);border-color:var(--green-dark);}
+
+/* ===== MODAL ===== */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:9000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s;}
+.modal-overlay.active{opacity:1;pointer-events:all;}
+.modal-box{background:var(--white);border-radius:var(--radius-lg);width:100%;max-width:560px;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.3);transform:translateY(20px);transition:transform .25s;}
+.modal-overlay.active .modal-box{transform:translateY(0);}
+.modal-header{display:flex;align-items:center;justify-content:space-between;padding:20px 24px 16px;border-bottom:1px solid var(--gray-light);}
+.modal-header h3{font-size:17px;font-weight:700;color:var(--green-dark);display:flex;align-items:center;gap:8px;}
+.modal-header h3 i{color:var(--gold);}
+.modal-close{background:none;border:none;cursor:pointer;font-size:20px;color:var(--gray-mid);padding:4px;transition:color .2s;}
+.modal-close:hover{color:var(--gray-dark);}
+.modal-body{padding:20px 24px;}
+.modal-footer{padding:16px 24px;border-top:1px solid var(--gray-light);display:flex;gap:10px;justify-content:flex-end;}
+
+/* FORM FIELDS */
+.field-group{margin-bottom:16px;}
+.field-group label{display:block;font-size:13px;font-weight:600;color:var(--green-dark);margin-bottom:6px;}
+.field-group input,.field-group select,.field-group textarea{width:100%;padding:10px 14px;border:1.5px solid var(--gray-light);border-radius:var(--radius-sm);font-family:'Tajawal',sans-serif;font-size:14px;color:var(--gray-dark);outline:none;transition:border-color .2s;background:var(--gray-soft);}
+.field-group input:focus,.field-group select:focus,.field-group textarea:focus{border-color:var(--green-mid);background:var(--white);}
+.field-group textarea{resize:vertical;min-height:80px;}
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.field-hint{font-size:11px;color:var(--gray-mid);margin-top:4px;}
+
+/* STATS EDIT */
+.stat-edit-btn{position:absolute;top:10px;left:10px;background:rgba(201,168,76,0.2);border:1px solid rgba(201,168,76,0.5);color:var(--gold-dark);border-radius:6px;padding:3px 8px;font-size:11px;cursor:pointer;display:none;font-family:'Tajawal',sans-serif;font-weight:600;gap:4px;align-items:center;}
+.admin-mode .stat-edit-btn{display:flex;}
+
+/* ADD BUTTON */
+.add-card-btn{display:none;align-items:center;justify-content:center;gap:8px;padding:14px;border-radius:var(--radius);border:2px dashed var(--green-light);background:transparent;color:var(--green-mid);font-family:'Tajawal',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;width:100%;}
+.add-card-btn:hover{background:var(--green-soft);border-color:var(--green-dark);color:var(--green-dark);}
+.admin-mode .add-card-btn{display:flex;}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:var(--green-dark);color:var(--gold-light);border:1px solid var(--gold);border-radius:8px;padding:12px 24px;font-size:14px;font-weight:500;z-index:9999;transition:transform .3s;white-space:nowrap;box-shadow:var(--shadow-md);}
+.toast.show{transform:translateX(-50%) translateY(0);}
+
+/* FOOTER */
+footer{background:var(--green-dark);color:rgba(255,255,255,0.65);text-align:center;padding:24px 2rem;font-size:13px;margin-top:2rem;}
+footer .footer-gold{color:var(--gold);font-weight:600;}
+footer .footer-links{display:flex;justify-content:center;gap:20px;margin-top:10px;flex-wrap:wrap;}
+footer .footer-links a{color:rgba(255,255,255,0.5);text-decoration:none;font-size:12px;transition:color .2s;}
+footer .footer-links a:hover{color:var(--gold-light);}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .header-nav{display:none;}
+  .hamburger{display:block;}
+  .hero-banner h2{font-size:22px;}
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .cards-grid{grid-template-columns:1fr;}
+  .meetings-grid{grid-template-columns:1fr;}
+  .field-row{grid-template-columns:1fr;}
+  .main-container{padding:1rem;}
+  .content-section{padding:16px;}
+  .reports-table{font-size:12px;}
+  .reports-table th,.reports-table td{padding:10px 8px;}
+}
+@media(max-width:480px){
+  .stats-grid{grid-template-columns:1fr 1fr;gap:10px;}
+  .stat-number{font-size:22px;}
+  .hero-banner{padding:36px 1rem 30px;}
+}
+html{scroll-behavior:smooth;}
+::-webkit-scrollbar{width:6px;}
+::-webkit-scrollbar-track{background:var(--gray-soft);}
+::-webkit-scrollbar-thumb{background:var(--green-mid);border-radius:3px;}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-inner">
+    <div class="logo-area">
+      <div class="logo-emblem">ع</div>
+      <div class="logo-text">
+        <h1>قسم العلاقات العامة والإعلام</h1>
+        <p>بوابة المعلومات والأرشيف المؤسسي</p>
+      </div>
+    </div>
+    <nav class="header-nav">
+      <a href="#stats" class="active">الإحصائيات</a>
+      <a href="#visits">الزيارات</a>
+      <a href="#meetings">الاجتماعات</a>
+      <a href="#celebrations">الاحتفالات</a>
+      <a href="#initiatives">المبادرات</a>
+      <a href="#reports">التقارير</a>
+    </nav>
+    <button class="hamburger" id="hamburgerBtn"><i class="fas fa-bars"></i></button>
+  </div>
+  <nav class="mobile-nav" id="mobileNav">
+    <a href="#stats">الإحصائيات</a>
+    <a href="#visits">الزيارات</a>
+    <a href="#meetings">الاجتماعات</a>
+    <a href="#celebrations">الاحتفالات</a>
+    <a href="#initiatives">المبادرات</a>
+    <a href="#reports">التقارير</a>
+  </nav>
+</header>
+
+<!-- ADMIN BAR -->
+<div class="admin-bar hidden" id="adminBar">
+  <div class="admin-label"><i class="fas fa-shield-alt"></i> وضع التعديل المباشر — التغييرات تُحفظ تلقائياً في المتصفح</div>
+  <div class="admin-actions">
+    <button onclick="exportData()"><i class="fas fa-download"></i> تصدير البيانات</button>
+    <button onclick="importData()"><i class="fas fa-upload"></i> استيراد بيانات</button>
+    <button onclick="resetData()" class="danger"><i class="fas fa-undo"></i> استعادة الافتراضي</button>
+    <button onclick="toggleAdmin()" class="danger"><i class="fas fa-times"></i> إغلاق وضع التعديل</button>
+  </div>
+</div>
+
+<!-- HERO + SEARCH -->
+<section class="hero-banner">
+  <div class="inner">
+    <span class="hero-tag"><i class="fas fa-star" style="font-size:10px"></i> منصة العلاقات العامة والإعلام</span>
+    <h2>مرحباً بكم في <span>بوابة العلاقات العامة</span></h2>
+    <p>ابحث عن أي تقرير أو فعالية أو اجتماع أو زيارة بكل سهولة</p>
+    <div class="search-wrapper">
+      <div class="search-bar">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="ابحث عن زيارة، اجتماع، تقرير، فعالية..." autocomplete="off">
+        <button class="search-btn" onclick="doSearch()"><i class="fas fa-search" style="margin-left:6px"></i> بحث</button>
+      </div>
+      <div class="search-suggestions" id="searchSuggestions">
+        <div class="suggestion-item" onclick="quickSearch('زيارة وفد')"><i class="fas fa-building"></i> زيارة وفد</div>
+        <div class="suggestion-item" onclick="quickSearch('اجتماع تنسيقي')"><i class="fas fa-users"></i> اجتماع تنسيقي</div>
+        <div class="suggestion-item" onclick="quickSearch('تقرير سنوي')"><i class="fas fa-file-alt"></i> تقرير سنوي</div>
+        <div class="suggestion-item" onclick="quickSearch('يوم عالمي')"><i class="fas fa-globe"></i> يوم عالمي</div>
+        <div class="suggestion-item" onclick="quickSearch('احتفال وطني')"><i class="fas fa-flag"></i> احتفال وطني</div>
+      </div>
+    </div>
+    <!-- زر الدخول لوضع التعديل (خفي - ضغط 3 مرات) -->
+    <div style="margin-top:18px;">
+      <button onclick="adminClickCount()" style="background:transparent;border:none;color:rgba(255,255,255,0.15);font-size:11px;cursor:pointer;font-family:'Tajawal',sans-serif;">⚙</button>
+    </div>
+  </div>
+</section>
+
+<div class="main-container">
+
+<!-- ===== STATS ===== -->
+<section class="stats-section" id="stats">
+  <div class="section-header">
+    <div class="section-title">
+      <div class="icon-badge"><i class="fas fa-chart-bar"></i></div>
+      <div><h3>لوحة الإحصائيات</h3><span>نظرة عامة على نشاط القسم</span></div>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+  <div class="stats-grid" id="statsGrid"></div>
+</section>
+
+<!-- ===== VISITS ===== -->
+<section class="content-section" id="visits">
+  <div class="section-header">
+    <div class="section-title">
+      <div class="icon-badge"><i class="fas fa-building"></i></div>
+      <div><h3>سجل الزيارات</h3><span>وفود وزيارات الجهات الرسمية</span></div>
+    </div>
+    <a href="#" class="section-link">عرض الكل <i class="fas fa-arrow-left"></i></a>
+  </div>
+  <div class="section-divider"></div>
+  <div class="filter-bar">
+    <span class="filter-label">تصفية:</span>
+    <button class="filter-chip active" onclick="filterItems('visits','all',this)">الكل</button>
+    <button class="filter-chip" onclick="filterItems('visits','حكومي',this)">حكومي</button>
+    <button class="filter-chip" onclick="filterItems('visits','خاص',this)">قطاع خاص</button>
+    <button class="filter-chip" onclick="filterItems('visits','دولي',this)">دولي</button>
+  </div>
+  <div class="cards-grid" id="visitsGrid"></div>
+  <button class="add-card-btn" onclick="openAddModal('visits')"><i class="fas fa-plus-circle"></i> إضافة زيارة جديدة</button>
+</section>
+
+<!-- ===== MEETINGS ===== -->
+<section class="content-section" id="meetings">
+  <div class="section-header">
+    <div class="section-title">
+      <div class="icon-badge"><i class="fas fa-users"></i></div>
+      <div><h3>سجل الاجتماعات</h3><span>اجتماعات القسم والجهات المختلفة</span></div>
+    </div>
+    <a href="#" class="section-link">عرض الكل <i class="fas fa-arrow-left"></i></a>
+  </div>
+  <div class="section-divider"></div>
+  <div class="meetings-grid" id="meetingsGrid"></div>
+  <button class="add-card-btn" onclick="openAddModal('meetings')"><i class="fas fa-plus-circle"></i> إضافة اجتماع جديد</button>
+</section>
+
+<!-- ===== CELEBRATIONS ===== -->
+<section class="content-section" id="celebrations">
+  <div class="section-header">
+    <div class="section-title">
+      <div class="icon-badge"><i class="fas fa-star"></i></div>
+      <div><h3>سجل الاحتفالات</h3><span>الفعاليات والمناسبات الوطنية والمؤسسية</span></div>
+    </div>
+    <a href="#" class="section-link">عرض الكل <i class="fas fa-arrow-left"></i></a>
+  </div>
+  <div class="section-divider"></div>
+  <div class="cards-grid" id="celebrationsGrid"></div>
+  <button class="add-card-btn" onclick="openAddModal('celebrations')"><i class="fas fa-plus-circle"></i> إضافة احتفال جديد</button>
+</section>
+
+<!-- ===== INITIATIVES ===== -->
+<section class="content-section" id="initiatives">
+  <div class="section-header">
+    <div class="section-title">
+      <div class="icon-badge"><i class="fas fa-lightbulb"></i></div>
+      <div><h3>المبادرات والأيام العالمية</h3><span>الفعاليات المجتمعية والتوعوية</span></div>
+    </div>
+    <a href="#" class="section-link">عرض الكل <i class="fas fa-arrow-left"></i></a>
+  </div>
+  <div class="section-divider"></div>
+  <div class="cards-grid" id="initiativesGrid"></div>
+  <button class="add-card-btn" onclick="openAddModal('initiatives')"><i class="fas fa-plus-circle"></i> إضافة مبادرة جديدة</button>
+</section>
+
+<!-- ===== REPORTS ===== -->
+<section class="content-section" id="reports">
+  <div class="section-header">
+    <div class="section-title">
+      <div class="icon-badge"><i class="fas fa-archive"></i></div>
+      <div><h3>تقارير القسم — الأرشيف</h3><span>سجل التقارير الدورية والسنوية</span></div>
+    </div>
+  </div>
+  <div class="section-divider"></div>
+  <div style="overflow-x:auto">
+    <table class="reports-table">
+      <thead><tr>
+        <th>#</th><th>مسمى التقرير</th><th>التاريخ</th><th>النوع</th><th>الإجراء</th>
+      </tr></thead>
+      <tbody id="reportsBody"></tbody>
+    </table>
+  </div>
+  <button class="add-card-btn" style="margin-top:14px" onclick="openAddModal('reports')"><i class="fas fa-plus-circle"></i> إضافة تقرير جديد</button>
+</section>
+
+</div><!-- /main-container -->
+
+<footer>
+  <p>© 2025 <span class="footer-gold">قسم العلاقات العامة والإعلام</span> — جميع الحقوق محفوظة</p>
+  <div class="footer-links">
+    <a href="#">سياسة الخصوصية</a>
+    <a href="#">شروط الاستخدام</a>
+    <a href="#">تواصل معنا</a>
+    <a href="#" onclick="toggleAdmin();return false;" style="color:rgba(255,255,255,0.2)">⚙ إدارة</a>
+  </div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<!-- ===== MODAL ===== -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 id="modalTitle"><i class="fas fa-edit"></i> تعديل</h3>
+      <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" onclick="closeModal()">إلغاء</button>
+      <button class="btn btn-gold" onclick="saveModal()"><i class="fas fa-save"></i> حفظ التغييرات</button>
+    </div>
+  </div>
+</div>
+
+<!-- IMPORT INPUT -->
+<input type="file" id="importFile" accept=".json" style="display:none" onchange="doImport(this)">
+
+<script>
+// ===================== DEFAULT DATA =====================
+const DEFAULT_DATA = {
+  stats:[
+    {id:1,value:4820,label:'إجمالي الزيارات الشهرية',icon:'fa-eye',type:'green',trend:'↑ 12%',trendType:'up'},
+    {id:2,value:57840,label:'إجمالي الزيارات السنوية',icon:'fa-calendar-check',type:'green',trend:'↑ 8%',trendType:'up'},
+    {id:3,value:128,label:'إجمالي الاجتماعات',icon:'fa-handshake',type:'gold',trend:'= ثابت',trendType:'steady'},
+    {id:4,value:43,label:'إجمالي المبادرات',icon:'fa-lightbulb',type:'gold',trend:'↑ 5%',trendType:'up'},
+    {id:5,value:36,label:'إجمالي الاحتفالات',icon:'fa-star',type:'gray',trend:'↑ 3%',trendType:'up'},
+    {id:6,value:294,label:'إجمالي التصاميم',icon:'fa-paint-brush',type:'gray',trend:'↑ 18%',trendType:'up'}
+  ],
+  visits:[
+    {id:1,title:'وفد وزارة الموارد البشرية والتنمية الاجتماعية',date:'12 يناير 2025',cat:'حكومي',photosUrl:'#',reportUrl:'#'},
+    {id:2,title:'وفد المنظمة العربية للتنمية الإدارية',date:'3 فبراير 2025',cat:'دولي',photosUrl:'#',reportUrl:'#'},
+    {id:3,title:'زيارة ممثلي هيئة الاتصالات والفضاء والتقنية',date:'18 فبراير 2025',cat:'حكومي',photosUrl:'#',reportUrl:'#'},
+    {id:4,title:'وفد شركة أرامكو السعودية — برنامج الشراكة',date:'5 مارس 2025',cat:'خاص',photosUrl:'#',reportUrl:'#'},
+    {id:5,title:'البعثة الدبلوماسية من جمهورية مصر العربية',date:'22 مارس 2025',cat:'دولي',photosUrl:'#',reportUrl:'#'},
+    {id:6,title:'وفد وزارة الصحة — برنامج الصحة الوقائية',date:'14 أبريل 2025',cat:'حكومي',photosUrl:'#',reportUrl:'#'}
+  ],
+  meetings:[
+    {id:1,day:'15',month:'يناير',title:'اجتماع اللجنة التنسيقية للفعاليات السنوية',desc:'اجتماع تنسيقي — قاعة الاجتماعات الرئيسية',photosUrl:'#',reportUrl:'#'},
+    {id:2,day:'22',month:'يناير',title:'اجتماع مناقشة خطة التواصل الإعلامي 2025',desc:'اجتماع استراتيجي — مقر القسم الرئيسي',photosUrl:'#',reportUrl:'#'},
+    {id:3,day:'8',month:'فبراير',title:'اجتماع متابعة مشاريع الهوية البصرية',desc:'اجتماع متابعة — قاعة الاجتماعات الفرعية',photosUrl:'#',reportUrl:'#'},
+    {id:4,day:'19',month:'فبراير',title:'اجتماع التحضير للمعرض السنوي للإنجازات',desc:'اجتماع تحضيري — قاعة الاجتماعات الرئيسية',photosUrl:'#',reportUrl:'#'},
+    {id:5,day:'5',month:'مارس',title:'اجتماع لجنة المبادرات المجتمعية الربع السنوي',desc:'اجتماع ربع سنوي — مقر القسم الرئيسي',photosUrl:'#',reportUrl:'#'},
+    {id:6,day:'28',month:'مارس',title:'اجتماع مع فريق الإعلام الرقمي لمراجعة المحتوى',desc:'اجتماع عمل — قاعة الاجتماعات الرئيسية',photosUrl:'#',reportUrl:'#'}
+  ],
+  celebrations:[
+    {id:1,title:'احتفال اليوم الوطني السعودي الرابع والتسعون',date:'23 سبتمبر 2024',cat:'وطني',photosUrl:'#',reportUrl:'#'},
+    {id:2,title:'احتفال تأسيس القسم — الذكرى العاشرة',date:'10 أكتوبر 2024',cat:'مؤسسي',photosUrl:'#',reportUrl:'#'},
+    {id:3,title:'احتفال يوم التأسيس السعودي',date:'22 فبراير 2025',cat:'وطني',photosUrl:'#',reportUrl:'#'},
+    {id:4,title:'حفل تكريم الكوادر المتميزة — الدورة السادسة',date:'15 مارس 2025',cat:'تميز',photosUrl:'#',reportUrl:'#'}
+  ],
+  initiatives:[
+    {id:1,title:'اليوم العالمي للصحة النفسية',date:'10 أكتوبر 2024',cat:'يوم عالمي',photosUrl:'#',reportUrl:'#'},
+    {id:2,title:'مبادرة نبراس للتطوع المجتمعي',date:'5 ديسمبر 2024',cat:'مبادرة',photosUrl:'#',reportUrl:'#'},
+    {id:3,title:'مبادرة وقاية — اليوم العالمي للسكري',date:'14 نوفمبر 2024',cat:'مبادرة',photosUrl:'#',reportUrl:'#'},
+    {id:4,title:'اليوم العالمي للبيئة — رسالتنا الخضراء',date:'5 يونيو 2025',cat:'يوم عالمي',photosUrl:'#',reportUrl:'#'},
+    {id:5,title:'مبادرة اقرأ — أسبوع القراءة الوطني',date:'18 مارس 2025',cat:'مبادرة',photosUrl:'#',reportUrl:'#'},
+    {id:6,title:'مبادرة بصمة خير — دعم الأسر المحتاجة',date:'20 أبريل 2025',cat:'مبادرة',photosUrl:'#',reportUrl:'#'}
+  ],
+  reports:[
+    {id:1,title:'التقرير السنوي الشامل للعلاقات العامة 2024',date:'ديسمبر 2024',type:'سنوي',url:'#'},
+    {id:2,title:'تقرير الربع الأول — الإنجازات والمستهدفات 2025',date:'مارس 2025',type:'ربع سنوي',url:'#'},
+    {id:3,title:'تقرير أنشطة المبادرات المجتمعية — 2024',date:'نوفمبر 2024',type:'نشاطات',url:'#'},
+    {id:4,title:'تقرير الزيارات الرسمية — الفصل الثالث 2024',date:'سبتمبر 2024',type:'زيارات',url:'#'},
+    {id:5,title:'تقرير أداء منظومة الإعلام الرقمي 2024',date:'أكتوبر 2024',type:'إعلام',url:'#'},
+    {id:6,title:'التقرير الإحصائي لأنشطة القسم — النصف الأول 2025',date:'يونيو 2025',type:'نصف سنوي',url:'#'}
+  ]
+};
+
+// ===================== STATE =====================
+let DB = JSON.parse(localStorage.getItem('prDeptData') || 'null') || JSON.parse(JSON.stringify(DEFAULT_DATA));
+let isAdmin = false;
+let currentModal = {section:null, id:null};
+let adminClicks = 0, adminTimer = null;
+
+function saveDB(){ localStorage.setItem('prDeptData', JSON.stringify(DB)); }
+
+// ===================== RENDER =====================
+function render(){
+  renderStats();
+  renderVisits();
+  renderMeetings();
+  renderCelebrations();
+  renderInitiatives();
+  renderReports();
+}
+
+// CAT BADGE COLORS
+const catColors = {
+  'حكومي':  {bg:'var(--green-soft)',  color:'var(--green-dark)'},
+  'دولي':   {bg:'#e8f0fe',           color:'#1a3d7d'},
+  'خاص':    {bg:'#f3e8ff',           color:'#5b21b6'},
+  'وطني':   {bg:'#fff3cd',           color:'#856404'},
+  'مؤسسي':  {bg:'#e8f5e9',           color:'#1b5e20'},
+  'تميز':   {bg:'#e8f5e9',           color:'#1b5e20'},
+  'يوم عالمي':{bg:'#e3f2fd',         color:'#0d47a1'},
+  'مبادرة': {bg:'#e8f5e9',           color:'#1b5e20'},
+  'سنوي':   {bg:'var(--green-soft)',  color:'var(--green-dark)'},
+  'ربع سنوي':{bg:'var(--green-soft)', color:'var(--green-dark)'},
+  'نشاطات': {bg:'#e3f2fd',           color:'#0d47a1'},
+  'زيارات': {bg:'#fff3cd',           color:'#856404'},
+  'إعلام':  {bg:'#fce4ec',           color:'#880e4f'},
+  'نصف سنوي':{bg:'var(--green-soft)',color:'var(--green-dark)'}
+};
+function badgeStyle(cat){
+  const c = catColors[cat] || {bg:'var(--green-soft)',color:'var(--green-dark)'};
+  return `background:${c.bg};color:${c.color}`;
+}
+
+function editBtns(section, id){
+  if(!isAdmin) return '';
+  return `<div class="card-edit-controls">
+    <button class="btn btn-edit" onclick="openEditModal('${section}',${id})"><i class="fas fa-pen"></i></button>
+    <button class="btn btn-delete" onclick="deleteItem('${section}',${id})"><i class="fas fa-trash"></i></button>
+  </div>`;
+}
+
+// STATS
+function renderStats(){
+  const g = document.getElementById('statsGrid');
+  g.innerHTML = DB.stats.map(s => `
+    <div class="stat-card ${s.type}">
+      <span class="stat-trend ${s.trendType}">${s.trend}</span>
+      <button class="stat-edit-btn" onclick="openEditModal('stats',${s.id})"><i class="fas fa-pen"></i> تعديل</button>
+      <div class="stat-icon"><i class="fas ${s.icon}"></i></div>
+      <div class="stat-number" data-target="${s.value}">${Number(s.value).toLocaleString('ar')}</div>
+      <div class="stat-label">${s.label}</div>
+    </div>`).join('');
+}
+
+// VISITS
+function renderVisits(filter='all'){
+  const g = document.getElementById('visitsGrid');
+  const items = filter==='all' ? DB.visits : DB.visits.filter(v=>v.cat===filter);
+  g.innerHTML = items.map(v => `
+    <div class="item-card" data-cat="${v.cat}">
+      ${editBtns('visits',v.id)}
+      <div class="card-badge" style="${badgeStyle(v.cat)}"><i class="fas fa-tag"></i> ${v.cat}</div>
+      <div class="card-title">${v.title}</div>
+      <div class="card-date"><i class="fas fa-calendar-alt"></i> ${v.date}</div>
+      <div class="card-actions">
+        <a href="${v.photosUrl}" class="btn btn-primary" target="_blank"><i class="fas fa-images"></i> الصور</a>
+        <a href="${v.reportUrl}" class="btn btn-outline-gold" target="_blank"><i class="fas fa-file-pdf"></i> التقرير</a>
+      </div>
+    </div>`).join('');
+}
+
+// MEETINGS
+function renderMeetings(){
+  const g = document.getElementById('meetingsGrid');
+  g.innerHTML = DB.meetings.map(m => `
+    <div class="meeting-card">
+      ${editBtns('meetings',m.id)}
+      <div class="meeting-date-box"><span class="day">${m.day}</span><span class="month">${m.month}</span></div>
+      <div class="meeting-info">
+        <h4>${m.title}</h4>
+        <p>${m.desc}</p>
+        <div class="card-actions">
+          <a href="${m.photosUrl}" class="btn btn-primary" target="_blank"><i class="fas fa-images"></i> الصور</a>
+          <a href="${m.reportUrl}" class="btn btn-outline-gold" target="_blank"><i class="fas fa-paperclip"></i> التقرير</a>
+        </div>
+      </div>
+    </div>`).join('');
+}
+
+// CELEBRATIONS
+function renderCelebrations(){
+  const g = document.getElementById('celebrationsGrid');
+  g.innerHTML = DB.celebrations.map(c => `
+    <div class="item-card">
+      ${editBtns('celebrations',c.id)}
+      <div class="card-badge" style="${badgeStyle(c.cat)}"><i class="fas fa-flag"></i> ${c.cat}</div>
+      <div class="card-title">${c.title}</div>
+      <div class="card-date"><i class="fas fa-calendar-alt"></i> ${c.date}</div>
+      <div class="card-actions">
+        <a href="${c.photosUrl}" class="btn btn-primary" target="_blank"><i class="fas fa-images"></i> ألبوم الصور</a>
+        <a href="${c.reportUrl}" class="btn btn-outline-gold" target="_blank"><i class="fas fa-file-alt"></i> التقرير</a>
+      </div>
+    </div>`).join('');
+}
+
+// INITIATIVES
+function renderInitiatives(){
+  const g = document.getElementById('initiativesGrid');
+  g.innerHTML = DB.initiatives.map(i => `
+    <div class="item-card">
+      ${editBtns('initiatives',i.id)}
+      <div class="card-badge" style="${badgeStyle(i.cat)}"><i class="fas fa-globe"></i> ${i.cat}</div>
+      <div class="card-title">${i.title}</div>
+      <div class="card-date"><i class="fas fa-calendar-alt"></i> ${i.date}</div>
+      <div class="card-actions">
+        <a href="${i.photosUrl}" class="btn btn-primary" target="_blank"><i class="fas fa-images"></i> الصور</a>
+        <a href="${i.reportUrl}" class="btn btn-outline-gold" target="_blank"><i class="fas fa-file-alt"></i> التقرير</a>
+      </div>
+    </div>`).join('');
+}
+
+// REPORTS
+function renderReports(){
+  const b = document.getElementById('reportsBody');
+  b.innerHTML = DB.reports.map((r,i) => `
+    <tr>
+      <td><span class="report-num">${i+1}</span></td>
+      <td style="font-weight:600;color:var(--green-dark)">${r.title}</td>
+      <td><i class="fas fa-calendar-alt" style="color:var(--gold);margin-left:5px"></i>${r.date}</td>
+      <td><span class="card-badge" style="margin:0;${badgeStyle(r.type)}">${r.type}</span></td>
+      <td style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+        <a href="${r.url}" class="btn btn-gold" target="_blank" style="padding:6px 12px"><i class="fas fa-eye"></i> استعراض</a>
+        <a href="${r.url}" class="btn btn-outline" target="_blank" style="padding:6px 12px"><i class="fas fa-download"></i> تحميل</a>
+        ${isAdmin ? `<button class="btn btn-edit" onclick="openEditModal('reports',${r.id})"><i class="fas fa-pen"></i></button>
+        <button class="btn btn-delete" onclick="deleteItem('reports',${r.id})"><i class="fas fa-trash"></i></button>` : ''}
+      </td>
+    </tr>`).join('');
+}
+
+// ===================== ADMIN MODE =====================
+function toggleAdmin(){
+  isAdmin = !isAdmin;
+  document.body.classList.toggle('admin-mode', isAdmin);
+  document.getElementById('adminBar').classList.toggle('hidden', !isAdmin);
+  render();
+  showToast(isAdmin ? '✏️ تم تفعيل وضع التعديل المباشر' : '✅ تم إغلاق وضع التعديل');
+}
+
+let _ac=0,_at=null;
+function adminClickCount(){
+  _ac++;
+  clearTimeout(_at);
+  _at = setTimeout(()=>{ _ac=0; },1500);
+  if(_ac>=3){ _ac=0; toggleAdmin(); }
+}
+
+// ===================== MODAL =====================
+const MODAL_FIELDS = {
+  stats: [
+    {key:'value',label:'القيمة العددية',type:'number'},
+    {key:'label',label:'التسمية',type:'text'},
+    {key:'trend',label:'مؤشر التغيير (مثال: ↑ 12%)',type:'text'},
+    {key:'trendType',label:'نوع الاتجاه',type:'select',opts:['up','steady']},
+    {key:'type',label:'نوع البطاقة',type:'select',opts:['green','gold','gray']}
+  ],
+  visits: [
+    {key:'title',label:'اسم الجهة الزائرة',type:'text'},
+    {key:'date',label:'تاريخ الزيارة',type:'text',hint:'مثال: 15 يناير 2025'},
+    {key:'cat',label:'التصنيف',type:'select',opts:['حكومي','دولي','خاص']},
+    {key:'photosUrl',label:'رابط الصور',type:'url'},
+    {key:'reportUrl',label:'رابط التقرير',type:'url'}
+  ],
+  meetings: [
+    {key:'title',label:'عنوان الاجتماع',type:'text'},
+    {key:'desc',label:'الوصف / المكان',type:'text'},
+    {key:'day',label:'اليوم',type:'text',hint:'مثال: 15'},
+    {key:'month',label:'الشهر',type:'text',hint:'مثال: يناير'},
+    {key:'photosUrl',label:'رابط الصور',type:'url'},
+    {key:'reportUrl',label:'رابط التقرير',type:'url'}
+  ],
+  celebrations: [
+    {key:'title',label:'مسمى الاحتفال',type:'text'},
+    {key:'date',label:'تاريخ الاحتفال',type:'text'},
+    {key:'cat',label:'التصنيف',type:'select',opts:['وطني','مؤسسي','تميز']},
+    {key:'photosUrl',label:'رابط الصور',type:'url'},
+    {key:'reportUrl',label:'رابط التقرير',type:'url'}
+  ],
+  initiatives: [
+    {key:'title',label:'مسمى المبادرة أو اليوم العالمي',type:'text'},
+    {key:'date',label:'تاريخ الفعالية',type:'text'},
+    {key:'cat',label:'التصنيف',type:'select',opts:['مبادرة','يوم عالمي']},
+    {key:'photosUrl',label:'رابط الصور',type:'url'},
+    {key:'reportUrl',label:'رابط التقرير',type:'url'}
+  ],
+  reports: [
+    {key:'title',label:'مسمى التقرير',type:'text'},
+    {key:'date',label:'التاريخ',type:'text'},
+    {key:'type',label:'نوع التقرير',type:'select',opts:['سنوي','نصف سنوي','ربع سنوي','نشاطات','زيارات','إعلام']},
+    {key:'url',label:'رابط التقرير',type:'url'}
+  ]
+};
+
+const SECTION_TITLES = {
+  stats:'الإحصائية',visits:'الزيارة',meetings:'الاجتماع',
+  celebrations:'الاحتفال',initiatives:'المبادرة',reports:'التقرير'
+};
+
+function buildForm(section, data){
+  const fields = MODAL_FIELDS[section];
+  return fields.map(f => {
+    const val = data ? (data[f.key]||'') : '';
+    let inp = '';
+    if(f.type==='select'){
+      inp = `<select name="${f.key}">${f.opts.map(o=>`<option value="${o}"${val===o?' selected':''}>${o}</option>`).join('')}</select>`;
+    } else {
+      inp = `<input type="${f.type==='url'?'text':f.type}" name="${f.key}" value="${val}" placeholder="${f.hint||''}">`;
+    }
+    return `<div class="field-group"><label>${f.label}</label>${inp}${f.hint?`<div class="field-hint">${f.hint}</div>`:''}</div>`;
+  }).join('');
+}
+
+function openEditModal(section, id){
+  currentModal = {section, id, mode:'edit'};
+  const item = DB[section].find(x=>x.id===id);
+  document.getElementById('modalTitle').innerHTML = `<i class="fas fa-pen"></i> تعديل ${SECTION_TITLES[section]}`;
+  document.getElementById('modalBody').innerHTML = buildForm(section, item);
+  document.getElementById('modalOverlay').classList.add('active');
+}
+
+function openAddModal(section){
+  currentModal = {section, id:null, mode:'add'};
+  document.getElementById('modalTitle').innerHTML = `<i class="fas fa-plus-circle"></i> إضافة ${SECTION_TITLES[section]} جديد`;
+  document.getElementById('modalBody').innerHTML = buildForm(section, null);
+  document.getElementById('modalOverlay').classList.add('active');
+}
+
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('active');
+}
+
+function saveModal(){
+  const {section, id, mode} = currentModal;
+  const form = document.getElementById('modalBody');
+  const inputs = form.querySelectorAll('input,select,textarea');
+  const data = {};
+  inputs.forEach(el=>{ data[el.name] = el.value.trim(); });
+
+  if(mode==='edit'){
+    const idx = DB[section].findIndex(x=>x.id===id);
+    if(idx>-1) DB[section][idx] = {...DB[section][idx], ...data};
+  } else {
+    const newId = Date.now();
+    const newItem = {id:newId, ...data};
+    if(section==='stats') newItem.value = parseInt(data.value)||0;
+    DB[section].push(newItem);
+  }
+
+  saveDB();
+  render();
+  closeModal();
+  showToast(mode==='edit' ? '✅ تم حفظ التغييرات بنجاح' : '✅ تمت الإضافة بنجاح');
+}
+
+function deleteItem(section, id){
+  if(!confirm('هل أنت متأكد من الحذف؟')) return;
+  DB[section] = DB[section].filter(x=>x.id!==id);
+  saveDB();
+  render();
+  showToast('🗑️ تم الحذف');
+}
+
+// ===================== FILTER =====================
+function filterItems(section, cat, btn){
+  if(section==='visits') renderVisits(cat);
+  const chips = btn.closest('.filter-bar').querySelectorAll('.filter-chip');
+  chips.forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ===================== SEARCH =====================
+var searchInput=document.getElementById('searchInput'),suggestions=document.getElementById('searchSuggestions');
+searchInput.addEventListener('focus',function(){if(!this.value.length)suggestions.classList.add('visible');});
+searchInput.addEventListener('input',function(){suggestions.classList.toggle('visible',!this.value.length);});
+document.addEventListener('click',function(e){if(!e.target.closest('.search-wrapper'))suggestions.classList.remove('visible');});
+function doSearch(){var q=searchInput.value.trim();if(!q)return;showToast('جارٍ البحث عن: '+q);suggestions.classList.remove('visible');}
+function quickSearch(t){searchInput.value=t;suggestions.classList.remove('visible');showToast('جارٍ البحث عن: '+t);}
+searchInput.addEventListener('keydown',function(e){if(e.key==='Enter')doSearch();});
+
+// ===================== EXPORT / IMPORT =====================
+function exportData(){
+  const blob = new Blob([JSON.stringify(DB, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'pr_data_' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+  showToast('📦 تم تصدير البيانات');
+}
+
+function importData(){
+  document.getElementById('importFile').click();
+}
+
+function doImport(input){
+  const file = input.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e){
+    try {
+      const imported = JSON.parse(e.target.result);
+      if(imported.stats && imported.visits){
+        DB = imported;
+        saveDB();
+        render();
+        showToast('✅ تم استيراد البيانات بنجاح');
+      } else {
+        showToast('❌ ملف غير صالح');
+      }
+    } catch(err){ showToast('❌ خطأ في قراءة الملف'); }
+  };
+  reader.readAsText(file);
+  input.value = '';
+}
+
+function resetData(){
+  if(!confirm('سيتم استعادة البيانات الافتراضية. هل أنت متأكد؟')) return;
+  DB = JSON.parse(JSON.stringify(DEFAULT_DATA));
+  saveDB();
+  render();
+  showToast('🔄 تمت استعادة البيانات الافتراضية');
+}
+
+// ===================== TOAST =====================
+function showToast(msg){
+  var t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(function(){t.classList.remove('show');},2800);
+}
+
+// ===================== NAV =====================
+document.getElementById('hamburgerBtn').addEventListener('click',function(){
+  var nav=document.getElementById('mobileNav');
+  nav.classList.toggle('open');
+  this.innerHTML=nav.classList.contains('open')?'<i class="fas fa-times"></i>':'<i class="fas fa-bars"></i>';
+});
+var navLinks=document.querySelectorAll('.header-nav a');
+window.addEventListener('scroll',function(){
+  var secs=['stats','visits','meetings','celebrations','initiatives','reports'];
+  var sp=window.scrollY+120;
+  secs.forEach(function(id){
+    var el=document.getElementById(id);if(!el)return;
+    if(el.offsetTop<=sp&&el.offsetTop+el.offsetHeight>sp){
+      navLinks.forEach(function(a){a.classList.remove('active');});
+      var ac=document.querySelector('.header-nav a[href="#'+id+'"]');
+      if(ac)ac.classList.add('active');
+    }
+  });
+});
+
+// MODAL CLOSE ON OVERLAY CLICK
+document.getElementById('modalOverlay').addEventListener('click',function(e){
+  if(e.target===this) closeModal();
+});
+
+// ===================== INIT =====================
+render();
+</script>
+</body>
+</html>
