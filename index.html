@@ -314,7 +314,7 @@ html{scroll-behavior:smooth;}
     <div class="la"><div class="le">ع</div><div class="lt"><h1>قسم العلاقات العامة والإعلام</h1><p>بوابة المعلومات والأرشيف المؤسسي</p></div></div>
     <nav class="hn">
       <a href="#stats" class="active">الإحصائيات</a><a href="#visits">الزيارات</a><a href="#meetings">الاجتماعات</a>
-      <a href="#celebrations">الاحتفالات</a><a href="#initiatives">المبادرات</a><a href="#exhibitions">المعارض</a><a href="#reports">التقارير</a>
+      <a href="#celebrations">الاحتفالات</a><a href="#initiatives">المبادرات</a><a href="#exhibitions">المعارض</a><a href="#annual-reports">التقارير السنوية</a><a href="#reports">الأرشيف</a>
     </nav>
     <div class="hr">
       <div class="ub"><div class="uav admin" id="uAv">م</div><div><div class="un" id="uNm">المدير</div><div class="ur" id="uRl">مدير النظام</div></div></div>
@@ -477,6 +477,22 @@ html{scroll-behavior:smooth;}
   </div>
   <div class="cg" id="exGrid"></div>
   <button class="addbtn" onclick="oAdd('exhibitions')"><i class="fas fa-plus-circle"></i> إضافة معرض جديد</button>
+</section>
+
+<!-- ANNUAL REPORTS -->
+<section class="cs" id="annual-reports">
+  <div class="sh"><div class="st"><div class="ib"><i class="fas fa-book-open"></i></div><div><h3>التقارير السنوية</h3><span>تحميل وقراءة التقارير السنوية</span></div></div></div>
+  <div class="sd"></div>
+  <div style="display:flex;gap:15px;flex-wrap:wrap;margin-bottom:20px;">
+    <a href="reports/report_1.pdf" target="_blank" style="display:flex;align-items:center;gap:10px;padding:15px;background:var(--w);border-radius:10px;border:1px solid rgba(0,0,0,0.06);text-decoration:none;color:inherit;min-width:250px;transition:transform 0.2s;box-shadow:0 3px 6px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+      <div style="font-size:30px;color:#ef4444;"><i class="fas fa-file-pdf"></i></div>
+      <div><h4 style="margin:0;font-size:14px;color:var(--t1);">التقرير السنوي الأول</h4><p style="margin:4px 0 0;font-size:11px;color:var(--t2);">انقر لعرض الملف</p></div>
+    </a>
+    <a href="reports/report_2.pdf" target="_blank" style="display:flex;align-items:center;gap:10px;padding:15px;background:var(--w);border-radius:10px;border:1px solid rgba(0,0,0,0.06);text-decoration:none;color:inherit;min-width:250px;transition:transform 0.2s;box-shadow:0 3px 6px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+      <div style="font-size:30px;color:#ef4444;"><i class="fas fa-file-pdf"></i></div>
+      <div><h4 style="margin:0;font-size:14px;color:var(--t1);">التقرير السنوي الثاني</h4><p style="margin:4px 0 0;font-size:11px;color:var(--t2);">انقر لعرض الملف</p></div>
+    </a>
+  </div>
 </section>
 
 <!-- REPORTS -->
@@ -1297,7 +1313,7 @@ document.getElementById('hbgBtn').addEventListener('click',function(){
 });
 const nls=document.querySelectorAll('.hn a');
 window.addEventListener('scroll',()=>{
-  ['stats','visits','meetings','celebrations','initiatives','exhibitions','reports'].forEach(id=>{
+  ['stats','visits','meetings','celebrations','initiatives','exhibitions','annual-reports','reports'].forEach(id=>{
     const el=document.getElementById(id);if(!el)return;
     const sp=window.scrollY+110;
     if(el.offsetTop<=sp&&el.offsetTop+el.offsetHeight>sp){
