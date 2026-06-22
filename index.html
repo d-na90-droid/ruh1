@@ -514,7 +514,7 @@ html{scroll-behavior:smooth;}
   <p>© 2025 <span class="fg2">قسم العلاقات العامة والإعلام</span> — جميع الحقوق محفوظة</p>
   <div class="fl">
     <a href="#">سياسة الخصوصية</a><a href="#">شروط الاستخدام</a>
-    <a href="#" onclick="if(CU&&CU.role==='admin')toggleAdmin();return false;">⚙ إدارة</a>
+    <a href="#" onclick="if(can('e'))toggleAdmin();return false;">⚙ إدارة</a>
   </div>
 </footer>
 </div>
@@ -581,7 +581,7 @@ function enterSite(u){
   document.getElementById('LS').style.display='none';
   document.getElementById('SW').style.display='block';
   applyUI();render();
-  if(u.role==='admin')toggleAdmin();
+  if(can('e'))toggleAdmin();
 }
 function applyUI(){
   const av=document.getElementById('uAv');
