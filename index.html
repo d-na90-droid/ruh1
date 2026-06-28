@@ -314,7 +314,7 @@ html{scroll-behavior:smooth;}
     <div class="la"><div class="le">ع</div><div class="lt"><h1>قسم العلاقات العامة والإعلام</h1><p>بوابة المعلومات والأرشيف المؤسسي</p></div></div>
     <nav class="hn">
       <a href="#stats" class="active">الإحصائيات</a><a href="#visits">الزيارات</a><a href="#meetings">الاجتماعات</a>
-      <a href="#celebrations">الاحتفالات</a><a href="#initiatives">المبادرات</a><a href="#exhibitions">المعارض</a><a href="#annual-reports">التقارير السنوية</a><a href="#reports">الأرشيف</a>
+      <a href="#celebrations">الاحتفالات</a><a href="#initiatives">المبادرات</a><a href="#exhibitions">المعارض</a><a href="#annualReports">التقارير السنوية</a><a href="#reports">الأرشيف</a>
     </nav>
     <div class="hr">
       <div class="ub"><div class="uav admin" id="uAv">م</div><div><div class="un" id="uNm">المدير</div><div class="ur" id="uRl">مدير النظام</div></div></div>
@@ -480,19 +480,13 @@ html{scroll-behavior:smooth;}
 </section>
 
 <!-- ANNUAL REPORTS -->
-<section class="cs" id="annual-reports">
-  <div class="sh"><div class="st"><div class="ib"><i class="fas fa-book-open"></i></div><div><h3>التقارير السنوية</h3><span>تحميل وقراءة التقارير السنوية</span></div></div></div>
-  <div class="sd"></div>
-  <div style="display:flex;gap:15px;flex-wrap:wrap;margin-bottom:20px;">
-    <a href="reports/report_1.pdf" target="_blank" style="display:flex;align-items:center;gap:10px;padding:15px;background:var(--w);border-radius:10px;border:1px solid rgba(0,0,0,0.06);text-decoration:none;color:inherit;min-width:250px;transition:transform 0.2s;box-shadow:0 3px 6px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
-      <div style="font-size:30px;color:#ef4444;"><i class="fas fa-file-pdf"></i></div>
-      <div><h4 style="margin:0;font-size:14px;color:var(--t1);">التقرير السنوي الأول</h4><p style="margin:4px 0 0;font-size:11px;color:var(--t2);">انقر لعرض الملف</p></div>
-    </a>
-    <a href="reports/report_2.pdf" target="_blank" style="display:flex;align-items:center;gap:10px;padding:15px;background:var(--w);border-radius:10px;border:1px solid rgba(0,0,0,0.06);text-decoration:none;color:inherit;min-width:250px;transition:transform 0.2s;box-shadow:0 3px 6px rgba(0,0,0,0.02);" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
-      <div style="font-size:30px;color:#ef4444;"><i class="fas fa-file-pdf"></i></div>
-      <div><h4 style="margin:0;font-size:14px;color:var(--t1);">التقرير السنوي الثاني</h4><p style="margin:4px 0 0;font-size:11px;color:var(--t2);">انقر لعرض الملف</p></div>
-    </a>
+<section class="cs" id="annualReports">
+  <div class="sh">
+    <div class="st"><div class="ib"><i class="fas fa-book-open"></i></div><div><h3>التقارير السنوية</h3><span>استعراض وإدارة التقارير بجميع الصيغ</span></div></div>
+    <button class="addbtn" onclick="oAdd('annualReports')"><i class="fas fa-plus"></i> إضافة تقرير جديد</button>
   </div>
+  <div class="sd"></div>
+  <div style="display:flex;gap:15px;flex-wrap:wrap;margin-bottom:20px;" id="annualReportsGrid"></div>
 </section>
 
 <!-- REPORTS -->
@@ -521,7 +515,7 @@ html{scroll-behavior:smooth;}
 
 <div class="toast" id="toast"></div>
 <input type="file" id="impFile" accept=".json" style="display:none" onchange="doImp(this)">
-<input type="file" id="pdfInp" accept=".pdf" style="display:none" onchange="onPdfPick(this)">
+<input type="file" id="pdfInp" accept="*/*" style="display:none" onchange="onPdfPick(this)">
 
 <!-- MODAL -->
 <div class="mo" id="MO">
@@ -663,6 +657,7 @@ const DD={
     {id:6,title:'مبادرة بصمة خير — دعم الأسر المحتاجة',date:'20 أبريل 2025',cat:'مبادرة',photos:'#',pdf:null,pdfName:'',pdfSize:0}
   ],
   reports:[],
+  annualReports:[],
   exhibitions:[
     {id:1,title:'معرض إنجازات القسم السنوي 2025',date:'10 فبراير 2025',cat:'داخلي',photos:'#',pdf:null,pdfName:'',pdfSize:0},
     {id:2,title:'معرض اليوم الوطني السعودي',date:'23 سبتمبر 2024',cat:'داخلي',photos:'#',pdf:null,pdfName:'',pdfSize:0},
@@ -676,6 +671,7 @@ fdb.collection('appData').doc('mainDB').onSnapshot(snap => {
     DB = snap.data();
     if(!DB.exhibitions) DB.exhibitions=[];
     if(!DB.reports) DB.reports=[];
+    if(!DB.annualReports) DB.annualReports=[];
     if(CU) render();
   } else {
     svDB();
@@ -686,23 +682,25 @@ fdb.collection('appData').doc('mainDB').onSnapshot(snap => {
 });
 
 // ======= PDF STORAGE (Firebase Storage) =======
-async function savePdfIDB(key,dataUrl){
-  const res = await fetch(dataUrl);
-  const blob = await res.blob();
-  const ref = fstorage.ref('pdfs/' + key + '.pdf');
-  await ref.put(blob);
+async function savePdfIDB(key, pendPdfObj){
+  const ref = fstorage.ref('files/' + key + '_' + pendPdfObj.name);
+  const task = ref.put(pendPdfObj.file);
+  const saveBtn = document.querySelector('.mfoot .btn.bg');
+  return new Promise((resolve, reject)=>{
+    task.on('state_changed', snap=>{
+      const prog = (snap.bytesTransferred / snap.totalBytes) * 100;
+      if(saveBtn) saveBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> جارٍ الرفع ${Math.round(prog)}%`;
+    }, err=>reject(err), ()=>resolve());
+  });
 }
-async function getPdfIDB(key){
-  try{
-    const ref = fstorage.ref('pdfs/' + key + '.pdf');
-    return await ref.getDownloadURL();
-  }catch(e){ return null; }
+async function getPdfIDB(key, filename){
+  try{ return await fstorage.ref('files/' + key + '_' + filename).getDownloadURL(); }catch(e){
+    try { return await fstorage.ref('pdfs/' + key + '.pdf').getDownloadURL(); } catch(e2) { return null; }
+  }
 }
-async function delPdfIDB(key){
-  try{
-    const ref = fstorage.ref('pdfs/' + key + '.pdf');
-    await ref.delete();
-  }catch(e){}
+async function delPdfIDB(key, filename){
+  try{ await fstorage.ref('files/' + key + '_' + filename).delete(); }catch(e){}
+  try{ await fstorage.ref('pdfs/' + key + '.pdf').delete(); }catch(e){}
 }
 
 const svDB=()=>{
@@ -716,6 +714,31 @@ const svDB=()=>{
 };
 
 // ======= HELPERS =======
+const extIcon = name => {
+  if(!name) return '<i class="fas fa-file-alt" style="color:#64748b"></i>';
+  const ex = name.split('.').pop().toLowerCase();
+  if(['pdf'].includes(ex)) return '<i class="fas fa-file-pdf" style="color:#ef4444"></i>';
+  if(['doc','docx'].includes(ex)) return '<i class="fas fa-file-word" style="color:#2563eb"></i>';
+  if(['xls','xlsx'].includes(ex)) return '<i class="fas fa-file-excel" style="color:#16a34a"></i>';
+  if(['ppt','pptx'].includes(ex)) return '<i class="fas fa-file-powerpoint" style="color:#ea580c"></i>';
+  if(['mp4','mov','avi'].includes(ex)) return '<i class="fas fa-file-video" style="color:#8b5cf6"></i>';
+  if(['jpg','jpeg','png'].includes(ex)) return '<i class="fas fa-file-image" style="color:#0ea5e9"></i>';
+  return '<i class="fas fa-file-alt" style="color:#64748b"></i>';
+};
+
+function rAnnualReports(){
+  if(!DB.annualReports.length) return '<div style="width:100%;text-align:center;padding:20px;color:var(--dm)">لا توجد تقارير حالياً</div>';
+  return DB.annualReports.map(r=>`
+    <div style="display:flex;align-items:center;gap:10px;padding:15px;background:var(--w);border-radius:10px;border:1px solid rgba(0,0,0,0.06);min-width:250px;position:relative;box-shadow:0 3px 6px rgba(0,0,0,0.02);">
+      <div style="font-size:30px;">${extIcon(r.pdfName)}</div>
+      <div style="flex:1"><h4 style="margin:0;font-size:14px;color:var(--t1);">${r.title}</h4><p style="margin:4px 0 0;font-size:11px;color:var(--t2);">${fmtSz(r.pdfSize)}</p></div>
+      <div style="display:flex;gap:5px;">
+        <button class="btn bo" onclick="dlPdf('annualReports',${r.id})" style="padding:5px 10px"><i class="fas fa-download"></i></button>
+        ${can('e')?`<button class="btn be" onclick="oEdit('annualReports',${r.id})" style="padding:5px 10px"><i class="fas fa-pen"></i></button>`:''}
+        ${can('d')?`<button class="btn bd" onclick="delItem('annualReports',${r.id})" style="padding:5px 10px"><i class="fas fa-trash"></i></button>`:''}
+      </div>
+    </div>`).join('');
+}
 const CC={'حكومي':{bg:'var(--gs)',c:'var(--gd)'},'دولي':{bg:'#e8f0fe',c:'#1a3d7d'},'خاص':{bg:'#f3e8ff',c:'#5b21b6'},'وطني':{bg:'#fff3cd',c:'#856404'},'مؤسسي':{bg:'#e8f5e9',c:'#1b5e20'},'تميز':{bg:'#e8f5e9',c:'#1b5e20'},'يوم عالمي':{bg:'#e3f2fd',c:'#0d47a1'},'مبادرة':{bg:'#e8f5e9',c:'#1b5e20'},'داخلي':{bg:'#e8f5e9',c:'#1b5e20'},'خارجي':{bg:'#fff3cd',c:'#856404'},'سنوي':{bg:'var(--gs)',c:'var(--gd)'},'ربع سنوي':{bg:'var(--gs)',c:'var(--gd)'},'نشاطات':{bg:'#e3f2fd',c:'#0d47a1'},'زيارات':{bg:'#fff3cd',c:'#856404'},'إعلام':{bg:'#fce4ec',c:'#880e4f'},'نصف سنوي':{bg:'var(--gs)',c:'var(--gd)'}};
 const bs=cat=>{const c=CC[cat]||{bg:'var(--gs)',c:'var(--gd)'};return `background:${c.bg};color:${c.c}`;};
 const fmtSz=b=>{if(!b)return '—';return b<1048576?(b/1024).toFixed(0)+' KB':(b/1048576).toFixed(1)+' MB';};
@@ -904,12 +927,12 @@ function closePV(){document.getElementById('pdfViewer').classList.remove('active
 async function dlPdf(sec,id){
   const item=DB[sec].find(x=>x.id===id);
   if(!item){showToast('❌ العنصر غير موجود');return;}
-  showToast('⏳ جارٍ التحضير...');
+  showToast('⏳ جارٍ فتح الملف...');
   try{
-    const data=await getPdfIDB(`${sec}_${id}`);
-    if(!data){showToast('❌ لا يوجد ملف PDF');return;}
-    const a=document.createElement('a');a.href=data;a.download=(item.title||'تقرير')+'.pdf';a.click();
-  }catch(e){showToast('❌ خطأ في التحميل');}
+    const data=await getPdfIDB(`${sec}_${id}`, item.pdfName);
+    if(!data){showToast('❌ لا يوجد ملف');return;}
+    const a=document.createElement('a');a.href=data;a.target='_blank';a.download=item.pdfName||'ملف';a.click();
+  }catch(e){showToast('❌ خطأ في الفتح');}
 }
 function dlCurPdf(){if(curPdfItem){const a=document.createElement('a');a.href=curPdfItem._data;a.download=(curPdfItem.title||'تقرير')+'.pdf';a.click();}}
 
@@ -919,16 +942,10 @@ function trigPdf(target){pendPdfTarget=target;document.getElementById('pdfInp').
 function onPdfPick(inp){
   const f=inp.files[0];if(!f)return;
   const area=document.getElementById('pdfArea');
-  if(area){area.className='pua has';area.innerHTML=`<i class="fas fa-spinner fa-spin" style="color:var(--gm);font-size:22px"></i><p>جارٍ تحميل الملف...</p><p class="sub">${f.name} — ${fmtSz(f.size)}</p>`;}
-  showToast('⏳ جارٍ قراءة الملف...');
-  const r=new FileReader();
-  r.onload=e=>{
-    pendPdf={data:e.target.result,name:f.name,size:f.size};
-    const area=document.getElementById('pdfArea');
-    if(area){area.classList.add('has');area.innerHTML=`<i class="fas fa-file-pdf" style="color:#e53e3e"></i><p>${f.name}</p><p class="sub">${fmtSz(f.size)} — تم التحميل ✓</p>`;}
-    showToast('✅ تم اختيار الملف — اضغط حفظ للتأكيد');
-  };
-  r.readAsDataURL(f);inp.value='';
+  pendPdf={file:f, name:f.name, size:f.size, data:null};
+  if(area){area.className='pua has';area.innerHTML=`${extIcon(f.name)}<p>${f.name}</p><p class="sub">${fmtSz(f.size)} — جاهز للرفع ✓</p>`;}
+  showToast('✅ تم اختيار الملف — اضغط حفظ للرفع');
+  inp.value='';
 }
 
 // ======= USERS =======
@@ -993,7 +1010,7 @@ const MF={
     {k:'photos',l:'رابط الصور',t:'text'}
   ]
 };
-const ST={visits:'الزيارة',meetings:'الاجتماع',celebrations:'الاحتفال',initiatives:'المبادرة',exhibitions:'المعرض',reports:'التقرير'};
+const ST={visits:'زيارة',meetings:'اجتماع',celebrations:'احتفال',initiatives:'مبادرة',reports:'تقرير',annualReports:'تقرير سنوي',exhibitions:'معرض'};
 let CM={sec:null,id:null,mode:null,type:null};
 
 function bldForm(sec,data){
@@ -1026,10 +1043,10 @@ function bldReportForm(data){
     <div class="fg"><label>نوع التقرير</label>
       <select name="type">${['سنوي','نصف سنوي','ربع سنوي','نشاطات','زيارات','إعلام'].map(o=>`<option value="${o}"${data&&data.type===o?' selected':''}>${o}</option>`).join('')}</select>
     </div>
-    <div class="fg"><label>ملف PDF</label>
+    <div class="fg"><label>الملف المرفق</label>
       <div class="pua ${hasPdf?'has':''}" id="pdfArea" onclick="trigPdf('reports')">
-        <i class="fas fa-${hasPdf?'file-pdf':'cloud-upload-alt'}" style="${hasPdf?'color:#e53e3e':''}"></i>
-        <p>${hasPdf?data.pdfName||'ملف محفوظ':'اضغط لرفع ملف PDF'}</p>
+        ${hasPdf ? extIcon(data.pdfName) : '<i class="fas fa-cloud-upload-alt"></i>'}
+        <p>${hasPdf?data.pdfName||'ملف محفوظ':'اضغط لاختيار ملف (أي صيغة)'}</p>
         ${hasPdf?`<p class="sub">${fmtSz(data.pdfSize)}</p>`:''}
       </div>
     </div>`;
@@ -1091,14 +1108,32 @@ async function saveMo(){
       if(mode==='add'){
         newId=Date.now();
         DB.reports.push({id:newId,title:data.title,date:data.date||'',type:data.type||'سنوي',pdfName:pendPdf.name,pdfSize:pendPdf.size,hasPdf:true});
-        await savePdfIDB(`reports_${newId}`,pendPdf.data);
+        await savePdfIDB(`reports_${newId}`,pendPdf);
       } else {
         const idx=DB.reports.findIndex(x=>x.id===id);
         if(idx>-1){Object.assign(DB.reports[idx],{title:data.title,date:data.date,type:data.type});
-          if(pendPdf){DB.reports[idx].pdfName=pendPdf.name;DB.reports[idx].pdfSize=pendPdf.size;DB.reports[idx].hasPdf=true;await savePdfIDB(`reports_${id}`,pendPdf.data);}
+          if(pendPdf){DB.reports[idx].pdfName=pendPdf.name;DB.reports[idx].pdfSize=pendPdf.size;DB.reports[idx].hasPdf=true;await savePdfIDB(`reports_${id}`,pendPdf);}
         }
       }
       svDB();render();closeMo();showToast(mode==='add'?'✅ تم رفع التقرير':'✅ تم التعديل');return;
+    }
+
+    // Handle Annual Reports
+    if(sec==='annualReports'){
+      if(!data.title){showToast('❌ يرجى إدخال المسمى');resetSaveBtn(saveBtn);return;}
+      if(mode==='add'&&!pendPdf){showToast('❌ يرجى رفع الملف');resetSaveBtn(saveBtn);return;}
+      if(mode==='add'){
+        const newId=Date.now();
+        DB.annualReports.push({id:newId,title:data.title,year:data.year||'',pdfName:pendPdf.name,pdfSize:pendPdf.size,hasPdf:true});
+        await savePdfIDB(`annualReports_${newId}`,pendPdf);
+      } else {
+        const idx=DB.annualReports.findIndex(x=>x.id===id);
+        if(idx>-1){
+          Object.assign(DB.annualReports[idx],{title:data.title,year:data.year});
+          if(pendPdf){DB.annualReports[idx].pdfName=pendPdf.name;DB.annualReports[idx].pdfSize=pendPdf.size;DB.annualReports[idx].hasPdf=true;await savePdfIDB(`annualReports_${id}`,pendPdf);}
+        }
+      }
+      svDB();render();closeMo();showToast('✅ تم الحفظ');return;
     }
 
     // Other sections
@@ -1106,13 +1141,13 @@ async function saveMo(){
       const idx=DB[sec].findIndex(x=>x.id===id);
       if(idx>-1){
         Object.assign(DB[sec][idx],data);
-        if(pendPdf){DB[sec][idx].pdfName=pendPdf.name;DB[sec][idx].pdfSize=pendPdf.size;DB[sec][idx].hasPdf=true;await savePdfIDB(`${sec}_${id}`,pendPdf.data);}
+        if(pendPdf){DB[sec][idx].pdfName=pendPdf.name;DB[sec][idx].pdfSize=pendPdf.size;DB[sec][idx].hasPdf=true;await savePdfIDB(`${sec}_${id}`,pendPdf);}
       }
     } else {
       const newId=Date.now();
       const newItem={id:newId,...data,photos:data.photos||'#',pdfName:pendPdf?pendPdf.name:'',pdfSize:pendPdf?pendPdf.size:0,hasPdf:!!pendPdf};
       DB[sec].push(newItem);
-      if(pendPdf)await savePdfIDB(`${sec}_${newId}`,pendPdf.data);
+      if(pendPdf)await savePdfIDB(`${sec}_${newId}`,pendPdf);
     }
     svDB();render();closeMo();showToast(mode==='edit'?'✅ تم الحفظ':'✅ تمت الإضافة');
   }catch(e){
@@ -1222,6 +1257,12 @@ function doSearch(){
   // collect all items
   const results=[];
   const secLabels={visits:{l:'زيارة',ico:'fa-building'},meetings:{l:'اجتماع',ico:'fa-users'},celebrations:{l:'احتفال',ico:'fa-star'},initiatives:{l:'مبادرة',ico:'fa-lightbulb'},exhibitions:{l:'معرض',ico:'fa-th-large'},reports:{l:'تقرير',ico:'fa-file-pdf'}};
+  ['visits','meetings','celebrations','initiatives','exhibitions'].forEach(sec=>{
+    const el=document.getElementById(sec+'Grid');
+    if(el)el.innerHTML=rCards(sec);
+  });
+  const rEl=document.getElementById('reportsGrid');if(rEl)rEl.innerHTML=rReports();
+  const arEl=document.getElementById('annualReportsGrid');if(arEl)arEl.innerHTML=rAnnualReports();
   Object.keys(secLabels).forEach(sec=>{
     DB[sec].forEach(item=>{
       const text=(item.title||'')+(item.desc||'')+(item.date||'')+(item.cat||'')+(item.type||'');
@@ -1339,7 +1380,7 @@ document.getElementById('hbgBtn').addEventListener('click',function(){
 });
 const nls=document.querySelectorAll('.hn a');
 window.addEventListener('scroll',()=>{
-  ['stats','visits','meetings','celebrations','initiatives','exhibitions','annual-reports','reports'].forEach(id=>{
+  ['stats','visits','meetings','celebrations','initiatives','exhibitions','annualReports','reports'].forEach(id=>{
     const el=document.getElementById(id);if(!el)return;
     const sp=window.scrollY+110;
     if(el.offsetTop<=sp&&el.offsetTop+el.offsetHeight>sp){
