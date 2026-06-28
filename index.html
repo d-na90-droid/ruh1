@@ -544,7 +544,21 @@ html{scroll-behavior:smooth;}
   <iframe id="pdfFrame" src=""></iframe>
 </div>
 
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-storage-compat.js"></script>
 <script>
+const firebaseConfig = {
+  apiKey: "AIzaSyBilcQaDIsauK5guDBpGJ9rjfs8zoj4LbY",
+  authDomain: "ruh-app-cf580.firebaseapp.com",
+  projectId: "ruh-app-cf580",
+  storageBucket: "ruh-app-cf580.firebasestorage.app",
+  messagingSenderId: "213437014969",
+  appId: "1:213437014969:web:59d23cda7229c631498c68"
+};
+firebase.initializeApp(firebaseConfig);
+const fdb = firebase.firestore();
+const fstorage = firebase.storage();
 // ======= USERS =======
 const DU=[
   {id:1,username:'admin',  password:'Admin@2025', role:'admin', name:'مدير النظام',    active:true},
@@ -557,9 +571,21 @@ const RP={
   editor:{e:true, a:true, d:false,u:false},
   viewer:{e:false,a:false,d:false,u:false}
 };
-const gU=()=>JSON.parse(localStorage.getItem('prU')||'null')||JSON.parse(JSON.stringify(DU));
-const sU=u=>localStorage.setItem('prU',JSON.stringify(u));
+let UsersCache = JSON.parse(JSON.stringify(DU));
+const gU=()=>UsersCache;
+const sU=u=>{
+  UsersCache = u;
+  fdb.collection('appData').doc('users').set({data: u});
+};
 let CU=null,isAdm=false;
+
+fdb.collection('appData').doc('users').onSnapshot(snap => {
+  if(snap.exists) {
+    UsersCache = snap.data().data;
+  } else {
+    sU(DU);
+  }
+});
 
 // ======= LOGIN =======
 function setLM(m){}
@@ -640,45 +666,37 @@ const DD={
     {id:3,title:'المعرض الدولي للتواصل المؤسسي',date:'15 مارس 2025',cat:'دولي',photos:'#',pdf:null,pdfName:'',pdfSize:0}
   ]
 };
-let DB=JSON.parse(localStorage.getItem('prDB')||'null')||JSON.parse(JSON.stringify(DD));
-if(!DB.exhibitions) DB.exhibitions=JSON.parse(JSON.stringify(DD.exhibitions));
+let DB = JSON.parse(JSON.stringify(DD));
 
-// ======= PDF STORAGE (IndexedDB) =======
-// PDF data is stored separately in IndexedDB to avoid localStorage 5MB limit
-let pdfDB=null;
-function openPdfDB(){
-  return new Promise((res,rej)=>{
-    if(pdfDB){res(pdfDB);return;}
-    const req=indexedDB.open('prPdfStore',1);
-    req.onupgradeneeded=e=>e.target.result.createObjectStore('pdfs',{keyPath:'key'});
-    req.onsuccess=e=>{pdfDB=e.target.result;res(pdfDB);};
-    req.onerror=()=>rej('IndexedDB error');
-  });
-}
-async function savePdfIDB(key,data){
-  const db=await openPdfDB();
-  return new Promise((res,rej)=>{
-    const tx=db.transaction('pdfs','readwrite');
-    tx.objectStore('pdfs').put({key,data});
-    tx.oncomplete=()=>res();tx.onerror=()=>rej();
-  });
+fdb.collection('appData').doc('mainDB').onSnapshot(snap => {
+  if (snap.exists) {
+    DB = snap.data();
+    if(!DB.exhibitions) DB.exhibitions=[];
+    if(!DB.reports) DB.reports=[];
+    if(CU) render();
+  } else {
+    svDB();
+  }
+});
+
+// ======= PDF STORAGE (Firebase Storage) =======
+async function savePdfIDB(key,dataUrl){
+  const res = await fetch(dataUrl);
+  const blob = await res.blob();
+  const ref = fstorage.ref('pdfs/' + key + '.pdf');
+  await ref.put(blob);
 }
 async function getPdfIDB(key){
-  const db=await openPdfDB();
-  return new Promise((res,rej)=>{
-    const tx=db.transaction('pdfs','readonly');
-    const req=tx.objectStore('pdfs').get(key);
-    req.onsuccess=()=>res(req.result?req.result.data:null);
-    req.onerror=()=>rej();
-  });
+  try{
+    const ref = fstorage.ref('pdfs/' + key + '.pdf');
+    return await ref.getDownloadURL();
+  }catch(e){ return null; }
 }
 async function delPdfIDB(key){
-  const db=await openPdfDB();
-  return new Promise(res=>{
-    const tx=db.transaction('pdfs','readwrite');
-    tx.objectStore('pdfs').delete(key);
-    tx.oncomplete=()=>res();
-  });
+  try{
+    const ref = fstorage.ref('pdfs/' + key + '.pdf');
+    await ref.delete();
+  }catch(e){}
 }
 
 const svDB=()=>{
@@ -686,7 +704,7 @@ const svDB=()=>{
   Object.keys(DB).forEach(sec=>{
     clean[sec]=(DB[sec]||[]).map(item=>{const {pdf,...rest}=item;return rest;});
   });
-  localStorage.setItem('prDB',JSON.stringify(clean));
+  fdb.collection('appData').doc('mainDB').set(clean);
 };
 
 // ======= HELPERS =======
