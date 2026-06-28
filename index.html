@@ -1008,6 +1008,10 @@ const MF={
     {k:'date',l:'تاريخ المعرض',t:'text',h:'مثال: 15 فبراير 2025'},
     {k:'cat',l:'التصنيف',t:'sel',o:['داخلي','خارجي','دولي']},
     {k:'photos',l:'رابط الصور',t:'text'}
+  ],
+  annualReports:[
+    {k:'title',l:'مسمى التقرير',t:'text',h:'مثال: التقرير السنوي 2024'},
+    {k:'year',l:'سنة التقرير',t:'text',h:'مثال: 2024'}
   ]
 };
 const ST={visits:'زيارة',meetings:'اجتماع',celebrations:'احتفال',initiatives:'مبادرة',reports:'تقرير',annualReports:'تقرير سنوي',exhibitions:'معرض'};
@@ -1024,10 +1028,10 @@ function bldForm(sec,data){
   }).join('');
   // PDF section for all sections except reports
   const hasPdf=data&&data.hasPdf;
-  html+=`<div class="fg"><label>ملف PDF للتقرير <span style="color:var(--dm);font-weight:400">(اختياري)</span></label>
+  html+=`<div class="fg"><label>الملف المرفق <span style="color:var(--dm);font-weight:400">(اختياري)</span></label>
     <div class="pua ${hasPdf?'has':''}" id="pdfArea" onclick="trigPdf('${sec}')">
-      <i class="fas fa-${hasPdf?'file-pdf':'cloud-upload-alt'}" style="${hasPdf?'color:#e53e3e':''}"></i>
-      <p>${hasPdf?data.pdfName||'ملف محفوظ':'اضغط لرفع ملف PDF (الحجم الأقصى 20 MB)'}</p>
+      ${hasPdf ? extIcon(data.pdfName) : '<i class="fas fa-cloud-upload-alt"></i>'}
+      <p>${hasPdf?data.pdfName||'ملف محفوظ':'اضغط لاختيار ملف (جميع الصيغ مدعومة)'}</p>
       ${hasPdf?`<p class="sub">${fmtSz(data.pdfSize)}</p>`:''}
     </div>
   </div>`;
