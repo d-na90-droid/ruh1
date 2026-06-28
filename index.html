@@ -585,6 +585,9 @@ fdb.collection('appData').doc('users').onSnapshot(snap => {
   } else {
     sU(DU);
   }
+}, err => {
+  console.error("Firebase Users Error:", err);
+  showToast('❌ خطأ في صلاحيات قاعدة البيانات (المستخدمين)');
 });
 
 // ======= LOGIN =======
@@ -677,6 +680,9 @@ fdb.collection('appData').doc('mainDB').onSnapshot(snap => {
   } else {
     svDB();
   }
+}, err => {
+  console.error("Firebase DB Error:", err);
+  showToast('❌ خطأ في الاتصال بقاعدة البيانات! يرجى التأكد من قواعد الأمان (Rules)');
 });
 
 // ======= PDF STORAGE (Firebase Storage) =======
@@ -704,7 +710,9 @@ const svDB=()=>{
   Object.keys(DB).forEach(sec=>{
     clean[sec]=(DB[sec]||[]).map(item=>{const {pdf,...rest}=item;return rest;});
   });
-  fdb.collection('appData').doc('mainDB').set(clean);
+  fdb.collection('appData').doc('mainDB').set(clean).catch(err => {
+    showToast('❌ تم رفض الحفظ: يرجى التأكد من إنشاء Firestore في وضع الاختبار');
+  });
 };
 
 // ======= HELPERS =======
