@@ -15,7 +15,17 @@
   --r:12px;--rs:8px;--rl:18px;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Tajawal',sans-serif;background:var(--ds);color:var(--dd);direction:rtl;font-size:15px;line-height:1.7;}
+body{font-family:'Tajawal',sans-serif;background:var(--ds);color:var(--dd);direction:rtl;font-size:15px;line-height:1.7;position:relative;min-height:100vh;}
+body::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: url('img/bg-green.jpg') no-repeat center center;
+  background-size: cover;
+  opacity: 0.08;
+  z-index: -1;
+  pointer-events: none;
+}
 
 /* ===LOGIN=== */
 #LS{position:fixed;inset:0;background:linear-gradient(145deg,#0a1f14,#1a3d2b,#0d2a1c);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;}
@@ -912,16 +922,23 @@ let curPdfItem=null;
 async function viewPdf(sec,id){
   const item=DB[sec].find(x=>x.id===id);
   if(!item){showToast('❌ العنصر غير موجود');return;}
+  
+  const isPdf = item.pdfName && item.pdfName.toLowerCase().endsWith('.pdf');
+  if(!isPdf) {
+    dlPdf(sec, id);
+    return;
+  }
+
   const pdfKey=`${sec}_${id}`;
   showToast('⏳ جارٍ تحميل الملف...');
   try{
-    const data=await getPdfIDB(pdfKey);
-    if(!data){showToast('❌ لا يوجد ملف PDF محفوظ');return;}
+    const data=await getPdfIDB(pdfKey, item.pdfName);
+    if(!data){showToast('❌ لا يوجد ملف محفوظ');return;}
     curPdfItem={...item,_sec:sec,_key:pdfKey,_data:data};
     document.getElementById('pvTitle').textContent=item.title||item.pdfName||'التقرير';
     document.getElementById('pdfFrame').src=data;
     document.getElementById('pdfViewer').classList.add('active');
-  }catch(e){showToast('❌ خطأ في تحميل الملف');}
+  }catch(e){showToast('❌ خطأ في الفتح');}
 }
 function closePV(){document.getElementById('pdfViewer').classList.remove('active');document.getElementById('pdfFrame').src='';curPdfItem=null;}
 async function dlPdf(sec,id){
