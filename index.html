@@ -1093,7 +1093,11 @@ function oAdd(sec){
 }
 function oAddUser(){CM={sec:null,id:null,mode:'add',type:'user'};document.getElementById('mTit').innerHTML=`<i class="fas fa-user-plus"></i> إضافة مستخدم`;document.getElementById('mBody').innerHTML=bldUserForm(null);document.getElementById('MO').classList.add('active');}
 function oEditUser(id){CM={sec:null,id,mode:'edit',type:'user'};const u=gU().find(x=>x.id===id);document.getElementById('mTit').innerHTML=`<i class="fas fa-user-edit"></i> تعديل المستخدم`;document.getElementById('mBody').innerHTML=bldUserForm(u);document.getElementById('MO').classList.add('active');}
-function closeMo(){document.getElementById('MO').classList.remove('active');pendPdf=null;}
+function closeMo(){
+  document.getElementById('MO').classList.remove('active');
+  pendPdf=null;
+  resetSaveBtn(document.querySelector('.mfoot .btn.bg'));
+}
 
 async function saveMo(){
   const inputs=document.getElementById('mBody').querySelectorAll('input,select,textarea');
